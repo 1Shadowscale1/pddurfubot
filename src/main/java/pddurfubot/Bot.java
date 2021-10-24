@@ -49,14 +49,4 @@ public class Bot extends TelegramLongPollingBot{
 		return "2090479806:AAGy-g13qUk3VUYecfkCrO2leAGJX5vD_r0";
                 //Токен бота
 	}
-
-    public static void main(String[] args) throws TelegramApiException {
-        Bot bot = new Bot();
-        TelegramBotsApi botapi = new TelegramBotsApi(DefaultBotSession.class);
-        try {
-            botapi.registerBot(bot);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
 }

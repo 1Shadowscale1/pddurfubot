@@ -60,7 +60,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>pddurfubot.Bot</mainClass>
+              <mainClass>com.pddurfubot.Main</mainClass>
             </manifest>
           </archive>
         </configuration>
