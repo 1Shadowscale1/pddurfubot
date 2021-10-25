@@ -1,1 +1,1 @@
-release: java -jar target/pdd-1.0-SNAPSHOT.jar
+release: java -jar pdd-1.0-SNAPSHOT-jar-with-dependencies.jar
