@@ -63,7 +63,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>pddurfubot.Initializing</mainClass>
+              <mainClass>pddurfubot.Main</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
@@ -88,7 +88,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>pddurfubot.Initializing</mainClass>
+              <mainClass>pddurfubot.Main</mainClass>
             </manifest>
           </archive>
         </configuration>
