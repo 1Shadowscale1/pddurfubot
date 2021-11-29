@@ -7,7 +7,6 @@ public class SwitchBasic {
     public static BotState SwitchBasicCommands(BotState botState, Message message) {
         String[] msgText = message.getText().split(" ");
         String inputCmd = msgText[0];
-        UserDataCache userDataCache = new UserDataCache();
         Long userId = message.getFrom().getId();
 
         switch (inputCmd) {
@@ -21,7 +20,7 @@ public class SwitchBasic {
                 botState = BotState.START_EXAM;
                 break;
             default:
-                botState = userDataCache.getUsersCurrentBotState(userId);
+                botState = CommandSwitch.userDataCache.getUsersCurrentBotState(userId);
                 break;
         }
 

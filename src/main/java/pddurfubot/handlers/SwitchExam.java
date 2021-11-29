@@ -6,7 +6,6 @@ import pddurfubot.cache.UserDataCache;
 public class SwitchExam {
     public static BotState SwitchExamCommands(BotState botState, Message message) {
         String inputCmd = message.getText().split(" ")[0];
-        UserDataCache userDataCache = new UserDataCache();
         Long userId = message.getFrom().getId();
 
         switch(inputCmd) {
@@ -17,7 +16,7 @@ public class SwitchExam {
                 botState = BotState.END_EXAM;
                 break;
             default:
-                botState = userDataCache.getUsersCurrentBotState(userId);
+                botState = CommandSwitch.userDataCache.getUsersCurrentBotState(userId);
                 break;
         }
         return botState;

@@ -5,8 +5,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import pddurfubot.cache.UserDataCache;
 
 public class CommandSwitch {
+    public static UserDataCache userDataCache = new UserDataCache();
     public static SendMessage ProcessCommands (Message message) {
-        UserDataCache userDataCache = new UserDataCache();
         Long userId = message.getFrom().getId();
         BotState botState = userDataCache.getUsersCurrentBotState(userId);
 
