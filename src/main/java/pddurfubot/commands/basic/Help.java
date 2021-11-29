@@ -16,9 +16,9 @@ public class Help implements CommandInterface {
     }
 
     @Override
-    public String exec(String[] args, int userId) {
+    public String exec(String[] args, Long userId) {
 
-        return "Возможно вы ввели неправильную команду" +
+        return "Возможно вы ввели неправильную команду\n" +
                 "/help - возвращает это сообщение\n" +
                 "/about - возвращает информацию о разработчиках бота\n" +
                 "/examStart + число - начинает тест ПДД на заданное количество вопросов (от 1 до 20)\n" +

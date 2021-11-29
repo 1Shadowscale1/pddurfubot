@@ -15,7 +15,7 @@ public class Stop implements CommandInterface {
     }
 
     @Override
-    public String exec(String[] args, int userId) {
+    public String exec(String[] args, Long userId) {
         return "Завершаем экзамен...";
     }
 }

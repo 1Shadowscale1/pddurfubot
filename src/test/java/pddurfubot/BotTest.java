@@ -32,10 +32,10 @@ class BotTest {
 
         SendMessage message = new SendMessage();
         message.setChatId(update.getMessage().getChatId().toString());
-        message.setText(botCommands.get(update.getMessage().getText()).exec(null, 0));
+        message.setText(botCommands.get(update.getMessage().getText()).exec(null, 0L));
 
         SendMessage expected = new SendMessage();
-        expected.setText(about.exec(null, 0));
+        expected.setText(about.exec(null, 0L));
         expected.setChatId(chat.getId().toString());
 
         assertEquals(expected, message);

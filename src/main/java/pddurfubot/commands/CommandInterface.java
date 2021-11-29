@@ -8,5 +8,5 @@ public interface CommandInterface {
 
     public String getName();
 
-    public String exec(String[] args, int userId);
+    public String exec(String[] args, Long userId);
 }

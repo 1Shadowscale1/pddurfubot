@@ -16,9 +16,9 @@ public class Start implements CommandInterface {
     }
 
     @Override
-    public String exec(String[] args, int userId) {
+    public String exec(String[] args, Long userId) {
         UserDataCache userDataCache = new UserDataCache();
-        int count = -1;
+        int count;
         try {
             count = Integer.parseInt(args[1]);
         } catch (NumberFormatException|ArrayIndexOutOfBoundsException e) {

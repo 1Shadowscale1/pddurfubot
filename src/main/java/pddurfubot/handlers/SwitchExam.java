@@ -7,7 +7,7 @@ public class SwitchExam {
     public static BotState SwitchExamCommands(BotState botState, Message message) {
         String inputCmd = message.getText().split(" ")[0];
         UserDataCache userDataCache = new UserDataCache();
-        int userId = Math.toIntExact(message.getFrom().getId());
+        Long userId = message.getFrom().getId();
 
         switch(inputCmd) {
             case "answer":

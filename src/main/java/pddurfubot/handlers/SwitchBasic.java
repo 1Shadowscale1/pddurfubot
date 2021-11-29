@@ -8,7 +8,7 @@ public class SwitchBasic {
         String[] msgText = message.getText().split(" ");
         String inputCmd = msgText[0];
         UserDataCache userDataCache = new UserDataCache();
-        int userId = Math.toIntExact(message.getFrom().getId());
+        Long userId = message.getFrom().getId();
 
         switch (inputCmd) {
             case "/help":

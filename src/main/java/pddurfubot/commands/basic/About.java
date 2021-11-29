@@ -16,7 +16,7 @@ public class About implements CommandInterface {
     }
 
     @Override
-    public String exec(String[] args, int userId) {
+    public String exec(String[] args, Long userId) {
         return "Создатели: Владынцев Сергей, Данилов Илья";
     }
 }

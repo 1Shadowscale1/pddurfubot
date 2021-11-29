@@ -16,16 +16,14 @@ public class Process implements CommandInterface {
     }
 
     @Override
-    public String exec(String[] args, int userId) {
-        UserDataCache userDataCache = new UserDataCache();
-        int answer = -1;
+    public String exec(String[] args, Long userId) {
+        int answer;
         try {
             answer = Integer.parseInt(args[1]);
-        } catch (NumberFormatException e) {
-            return "Напишите число вопросов в корректном виде";
+        } catch (NumberFormatException|ArrayIndexOutOfBoundsException e) {
+            return "Напишите вариант ответа в виде числа";
         }
         if (answer > 4 | answer < 1) {
-            userDataCache.setUsersCurrentBotState(userId, null);
             return "Неверный ввод параметра";
         }
         if (answer == 4)
