@@ -1,10 +1,13 @@
 package pddurfubot;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
+import pddurfubot.cache.UserDataCache;
+import pddurfubot.handlers.CallbackQueryHandler;
 import pddurfubot.handlers.CommandSwitch;
 
 public class Bot extends TelegramLongPollingBot{
@@ -19,6 +22,14 @@ public class Bot extends TelegramLongPollingBot{
                 e.printStackTrace();
             }
         }
+		if (update.hasCallbackQuery()){
+			CallbackQuery callbackQuery = update.getCallbackQuery();
+			try {
+				execute(CallbackQueryHandler.ProcessCallback(callbackQuery));
+			} catch (TelegramApiException e) {
+				e.printStackTrace();
+			}
+		}
     }
 
 	@Override
