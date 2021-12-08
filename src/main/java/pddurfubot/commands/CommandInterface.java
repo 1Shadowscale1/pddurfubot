@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface CommandInterface {
 
-    public String getDescription();
+    String getDescription();
 
-    public String getName();
+    String getName();
 
-    public String exec(String[] args, Long userId);
+    String exec(String[] args, Long chatId);
 }

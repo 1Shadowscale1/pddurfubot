@@ -16,5 +16,5 @@ public class Wrong implements CommandInterface {
     }
 
     @Override
-    public String exec(String[] args, Long userId) { return "Неверная команда"; }
+    public String exec(String[] args, Long chatId) { return "Неверная команда"; }
 }

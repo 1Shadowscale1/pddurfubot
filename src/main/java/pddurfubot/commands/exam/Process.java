@@ -2,6 +2,8 @@ package pddurfubot.commands.exam;
 
 import pddurfubot.cache.UserDataCache;
 import pddurfubot.commands.CommandInterface;
+import pddurfubot.handlers.BotState;
+import pddurfubot.handlers.CommandSwitch;
 
 public class Process implements CommandInterface {
 
@@ -16,20 +18,20 @@ public class Process implements CommandInterface {
     }
 
     @Override
-    public String exec(String[] args, Long userId) {
-        int answer;
+    public String exec(String[] args, Long chatId) {
         try {
-            answer = Integer.parseInt(args[1]);
-        } catch (NumberFormatException|ArrayIndexOutOfBoundsException e) {
-            return "Напишите вариант ответа в виде числа";
+            return UserDataCache
+                    .getUsersExaminer(chatId)
+                    .getNextQuestion()
+                    .getQuestion();
         }
-        if (answer > 4 | answer < 1) {
-            return "Неверный ввод параметра";
+        catch (NullPointerException e){
+            int result = UserDataCache
+                    .getUsersExaminer(chatId)
+                    .getExamResults();
+            UserDataCache.setUsersCurrentBotState(chatId, BotState.ANSWER_HELP);
+            return Integer.toString(result);
         }
-        if (answer == 4)
-            return "Верный ответ";
-        else {
-            return "Неправильный ответ";
-        }
+
     }
 }

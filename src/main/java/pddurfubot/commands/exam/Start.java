@@ -2,6 +2,8 @@ package pddurfubot.commands.exam;
 
 import pddurfubot.cache.UserDataCache;
 import pddurfubot.commands.CommandInterface;
+import pddurfubot.handlers.BotState;
+import pddurfubot.handlers.CommandSwitch;
 
 public class Start implements CommandInterface {
 
@@ -16,18 +18,7 @@ public class Start implements CommandInterface {
     }
 
     @Override
-    public String exec(String[] args, Long userId) {
-        UserDataCache userDataCache = new UserDataCache();
-        int count;
-        try {
-            count = Integer.parseInt(args[1]);
-        } catch (NumberFormatException|ArrayIndexOutOfBoundsException e) {
-            return "Напишите число вопросов в корректном виде";
-        }
-        if (count > 20 | count < 1) {
-            userDataCache.setUsersCurrentBotState(userId, null);
-            return "Неверный ввод параметра";
-        }
-        return "Пишите ответ как \"answer + номер варианта\"\n\n" + "Начинаем экзамен...";
+    public String exec(String[] args, Long chatId) {
+        return "Выберите вариант";
     }
 }
