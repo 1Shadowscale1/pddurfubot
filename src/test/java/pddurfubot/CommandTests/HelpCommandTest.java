@@ -2,6 +2,7 @@ package pddurfubot.CommandTests;
 
 import org.junit.jupiter.api.Test;
 import pddurfubot.TestConfig;
+import pddurfubot.cache.UserDataCache;
 import pddurfubot.commands.basic.Help;
 import pddurfubot.handlers.BotState;
 import pddurfubot.handlers.CommandSwitch;
@@ -25,6 +26,6 @@ public class HelpCommandTest {
         testConfig.testMessage.setText("/help");
         CommandSwitch.ProcessCommands(testConfig.testMessage);
         assertEquals(BotState.ANSWER_HELP,
-                CommandSwitch.userDataCache.getUsersCurrentBotState(testConfig.user.getId()));
+                UserDataCache.getUsersCurrentBotState(testConfig.user.getId()));
     }
 }

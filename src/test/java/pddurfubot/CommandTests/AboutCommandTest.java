@@ -2,6 +2,7 @@ package pddurfubot.CommandTests;
 
 import org.junit.jupiter.api.Test;
 import pddurfubot.TestConfig;
+import pddurfubot.cache.UserDataCache;
 import pddurfubot.handlers.BotState;
 import pddurfubot.handlers.CommandSwitch;
 
@@ -24,6 +25,6 @@ public class AboutCommandTest {
         testConfig.testMessage.setText("/about");
         CommandSwitch.ProcessCommands(testConfig.testMessage);
         assertEquals(BotState.ANSWER_ABOUT,
-                CommandSwitch.userDataCache.getUsersCurrentBotState(testConfig.user.getId()));
+                UserDataCache.getUsersCurrentBotState(testConfig.user.getId()));
     }
 }

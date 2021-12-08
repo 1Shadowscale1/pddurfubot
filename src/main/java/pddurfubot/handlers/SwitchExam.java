@@ -4,19 +4,17 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import pddurfubot.cache.UserDataCache;
 
 public class SwitchExam {
-    public static BotState SwitchExamCommands(BotState botState, Message message) {
+    public static BotState SwitchExamCommands(Message message) {
+        BotState botState;
         String inputCmd = message.getText().split(" ")[0];
-        Long userId = message.getFrom().getId();
+        Long chatId = message.getChatId();
 
         switch(inputCmd) {
-            case "answer":
-                botState = BotState.QUESTION_EXAM;
-                break;
             case "/examStop":
                 botState = BotState.END_EXAM;
                 break;
             default:
-                botState = CommandSwitch.userDataCache.getUsersCurrentBotState(userId);
+                botState = UserDataCache.getUsersCurrentBotState(chatId);
                 break;
         }
         return botState;

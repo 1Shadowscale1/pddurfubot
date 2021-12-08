@@ -4,11 +4,12 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import pddurfubot.cache.UserDataCache;
 
 public class SwitchBasic {
-    public static BotState SwitchBasicCommands(BotState botState, Message message) {
+    public static BotState SwitchBasicCommands(Message message) {
         String[] msgText = message.getText().split(" ");
         String inputCmd = msgText[0];
-        Long userId = message.getFrom().getId();
+        Long chatId = message.getChatId();
 
+        BotState botState;
         switch (inputCmd) {
             case "/help":
                 botState = BotState.ANSWER_HELP;
@@ -20,7 +21,7 @@ public class SwitchBasic {
                 botState = BotState.START_EXAM;
                 break;
             default:
-                botState = CommandSwitch.userDataCache.getUsersCurrentBotState(userId);
+                botState = UserDataCache.getUsersCurrentBotState(chatId);
                 break;
         }
 
