@@ -5,6 +5,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import pddurfubot.cache.UserDataCache;
 import pddurfubot.exam.MarkupBuilder;
+import pddurfubot.weatherAPI.LocationKeyboard;
 
 public class MessageBuild {
     public static SendMessage BuildOutputMessage(BotState botState, Message message, Long chatId) {
@@ -24,6 +25,10 @@ public class MessageBuild {
             InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
             inlineKeyboardMarkup.setKeyboard(MarkupBuilder.getExamMarkup());
             sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+        }
+
+        if (UserDataCache.getUsersCurrentBotState(chatId) == BotState.ASK_WEATHER){
+            sendMessage.setReplyMarkup(LocationKeyboard.Build());
         }
         return sendMessage;
     }

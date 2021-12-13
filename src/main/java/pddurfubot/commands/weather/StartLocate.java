@@ -1,8 +1,8 @@
-package pddurfubot.commands.exam;
+package pddurfubot.commands.weather;
 
 import pddurfubot.commands.CommandInterface;
 
-public class Start implements CommandInterface {
+public class StartLocate implements CommandInterface {
 
     @Override
     public String getDescription() {
@@ -15,7 +15,6 @@ public class Start implements CommandInterface {
     }
 
     @Override
-    public String exec(String[] args, Long chatId) {
-        return "Выберите вариант";
-    }
+    public String exec(String[] args, Long chatId) { return "Отправьте геолокацию"; }
 }
+

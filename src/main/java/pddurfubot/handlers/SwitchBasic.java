@@ -20,6 +20,9 @@ public class SwitchBasic {
             case "/examStart":
                 botState = BotState.START_EXAM;
                 break;
+            case "/askWeather":
+                botState = BotState.ASK_WEATHER;
+                break;
             default:
                 botState = UserDataCache.getUsersCurrentBotState(chatId);
                 break;

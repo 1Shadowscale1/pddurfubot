@@ -7,6 +7,7 @@ import pddurfubot.commands.basic.Wrong;
 import pddurfubot.commands.exam.Process;
 import pddurfubot.commands.exam.Start;
 import pddurfubot.commands.exam.Stop;
+import pddurfubot.commands.weather.StartLocate;
 
 /** возможные состояния бота
  */
@@ -17,6 +18,7 @@ public enum BotState {
     START_EXAM(new Start()),
     QUESTION_EXAM(new Process()),
     END_EXAM(new Stop()),
+    ASK_WEATHER(new StartLocate()),
     ANSWER_WRONG(new Wrong());
 
     public final CommandInterface command;

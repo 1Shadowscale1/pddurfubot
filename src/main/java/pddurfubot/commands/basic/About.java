@@ -1,7 +1,6 @@
 package pddurfubot.commands.basic;
 
 import pddurfubot.commands.CommandInterface;
-import java.util.List;
 
 public class About implements CommandInterface {
 

@@ -1,7 +1,6 @@
 package pddurfubot.commands.basic;
 
 import pddurfubot.commands.CommandInterface;
-import java.util.List;
 
 public class Help implements CommandInterface {
 
@@ -21,6 +20,7 @@ public class Help implements CommandInterface {
         return  "/help - возвращает это сообщение\n" +
                 "/about - возвращает информацию о разработчиках бота\n" +
                 "/examStart + число - начинает тест ПДД на заданное количество вопросов (от 1 до 20)\n" +
-                "/examStop - принудительно завершает тест ПДД, начатый пользователем";
+                "/examStop - принудительно завершает тест ПДД, начатый пользователем\n" +
+                "/askWeather - бот отправит погоду по вашей геолокации";
     }
 }

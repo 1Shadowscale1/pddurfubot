@@ -3,7 +3,6 @@ package pddurfubot.commands.exam;
 import pddurfubot.cache.UserDataCache;
 import pddurfubot.commands.CommandInterface;
 import pddurfubot.handlers.BotState;
-import pddurfubot.handlers.CommandSwitch;
 
 public class Process implements CommandInterface {
 
