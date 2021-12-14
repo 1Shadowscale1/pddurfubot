@@ -4,7 +4,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import pddurfubot.cache.UserDataCache;
 
 public class SwitchExam {
-    public static BotState SwitchExamCommands(Message message) {
+    public static void SwitchExamCommands(Message message) {
         BotState botState;
         String inputCmd = message.getText().split(" ")[0];
         Long chatId = message.getChatId();
@@ -17,6 +17,6 @@ public class SwitchExam {
                 botState = UserDataCache.getUsersCurrentBotState(chatId);
                 break;
         }
-        return botState;
+        UserDataCache.setUsersCurrentBotState(chatId,botState);
     }
 }

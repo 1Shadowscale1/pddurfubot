@@ -4,7 +4,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import pddurfubot.cache.UserDataCache;
 
 public class SwitchBasic {
-    public static BotState SwitchBasicCommands(Message message) {
+    public static void SwitchBasicCommands(Message message) {
         String[] msgText = message.getText().split(" ");
         String inputCmd = msgText[0];
         Long chatId = message.getChatId();
@@ -21,10 +21,9 @@ public class SwitchBasic {
                 botState = BotState.START_EXAM;
                 break;
             default:
-                botState = UserDataCache.getUsersCurrentBotState(chatId);
+                botState = BotState.ANSWER_HELP;
                 break;
         }
-
-        return botState;
+        UserDataCache.setUsersCurrentBotState(chatId,botState);
     }
 }
