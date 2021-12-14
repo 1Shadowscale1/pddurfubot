@@ -18,11 +18,10 @@ public class Examiner {
         catch (ArrayIndexOutOfBoundsException e){
             return null;
         }
-
     }
 
     public void setAnswer(String answer){
-        if (examList[questionPointer].getCorrectAnswer().equals(answer)){
+        if (answer.equals("right")){
             examResults++;
         }
         questionPointer++;

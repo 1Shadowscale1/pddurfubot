@@ -8,11 +8,17 @@ import java.util.List;
 public class MarkupBuilder {
     public static ArrayList getQuestionMarkup(ExamQuestion examQuestion) {
         List<List<InlineKeyboardButton>> inlineButtons = new ArrayList<>();
-        for (int i = 0; i < examQuestion.getAnswers().length; i++){
+        for (int i = 0; i < examQuestion.getAnswers().size(); i++){
             List<InlineKeyboardButton> inlineKeyboardButtonList = new ArrayList<>();
             InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
-            inlineKeyboardButton.setText(examQuestion.getAnswers()[i]);
-            inlineKeyboardButton.setCallbackData(examQuestion.getAnswers()[i]);
+            inlineKeyboardButton.setText(examQuestion.getAnswers().get(i));
+
+            if (examQuestion.getAnswers().get(i).equals(examQuestion.getCorrectAnswer())){
+                inlineKeyboardButton.setCallbackData("right");
+            }
+            else {
+                inlineKeyboardButton.setCallbackData("wrong");
+            }
             inlineKeyboardButtonList.add(inlineKeyboardButton);
             inlineButtons.add(inlineKeyboardButtonList);
         }
