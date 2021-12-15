@@ -15,6 +15,9 @@ public class DataBase {
 
     public static void initialise(){
         configuration = new Configuration().configure();
+        configuration.setProperty("hibernate.connection.password",System.getenv("JDBC_DATABASE_USERNAME"));
+        configuration.setProperty("hibernate.connection.username",System.getenv("JDBC_DATABASE_PASSWORD"));
+        configuration.setProperty("hibernate.connection.url",System.getenv("JDBC_DATABASE_URL"));
         configuration.addAnnotatedClass(ExamQuestion.class);
         builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
         sessionFactory =configuration.buildSessionFactory(builder.build());

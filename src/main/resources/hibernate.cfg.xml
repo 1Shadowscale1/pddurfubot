@@ -8,23 +8,9 @@
 
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-
-        <!--        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>-->
-        <!--        <property name="hibernate.connection-driver_class">org.postgresql.Driver</property>-->
-        <!--        <property name="hibernate.connection.username">jqqaivvirhyion</property>-->
-        <!--        <property name="hibernate.connection.password">53025d360c1cecad92238536cdf506a39b7d50f378ce51072aa9d4c69b025941-->
-        <!--        </property>-->
-        <!--        <property name="hibernate.connection.url">jdbc:postgresql://ec2-54-89-105-122.compute-1.amazonaws.com:5432/desclgo08efp26-->
-        <!--        </property>-->
-
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>
         <property name="hibernate.connection-driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">1234</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/test</property>
         <property name="show_sql">true</property>
-
-
 
         <mapping class="pddurfubot.exam.ExamQuestion"/>
 
