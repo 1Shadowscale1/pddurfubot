@@ -10,14 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AboutCommandTest {
     TestConfig testConfig = new TestConfig();
-    @Test
-    public void OutputTest()
-    {
-        testConfig.testMessage.setText("/about");
-        assertEquals("Создатели: Владынцев Сергей, Данилов Илья",
-                CommandSwitch.ProcessCommands(testConfig.testMessage)
-                        .getText());
-    }
 
     @Test
     public void StateTest()
