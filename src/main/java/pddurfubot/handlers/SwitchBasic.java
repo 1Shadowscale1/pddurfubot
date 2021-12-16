@@ -3,6 +3,8 @@ package pddurfubot.handlers;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import pddurfubot.cache.UserDataCache;
 
+import java.util.Locale;
+
 public class SwitchBasic {
     public static void SwitchBasicCommands(Message message) {
         String[] msgText = message.getText().split(" ");
@@ -10,14 +12,14 @@ public class SwitchBasic {
         Long chatId = message.getChatId();
 
         BotState botState;
-        switch (inputCmd) {
+        switch (inputCmd.toLowerCase()) {
             case "/help":
                 botState = BotState.ANSWER_HELP;
                 break;
             case "/about":
                 botState = BotState.ANSWER_ABOUT;
                 break;
-            case "/examStart":
+            case "/examstart":
                 botState = BotState.START_EXAM;
                 break;
             default:

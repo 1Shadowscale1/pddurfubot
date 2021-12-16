@@ -9,8 +9,8 @@ public class SwitchExam {
         String inputCmd = message.getText().split(" ")[0];
         Long chatId = message.getChatId();
 
-        switch(inputCmd) {
-            case "/examStop":
+        switch(inputCmd.toLowerCase()) {
+            case "/examstop":
                 botState = BotState.END_EXAM;
                 break;
             default:
