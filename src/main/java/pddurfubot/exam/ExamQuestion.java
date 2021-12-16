@@ -1,19 +1,24 @@
 package pddurfubot.exam;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.*;
 import java.util.List;
+import java.util.Set;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@Table(name = "variant1")
+@Table(name = "variant_test")
 public class ExamQuestion {
 
     @Id
     @Column
     private Integer id;
 
-    @Lob
-    @Column(name = "question_image")
+
+    @Column(name="question_image")
     private byte[] questionImage;
 
     @ElementCollection

@@ -7,17 +7,26 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import pddurfubot.exam.ExamQuestion;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 public class DataBase {
     private static Configuration configuration;
     private static StandardServiceRegistryBuilder builder;
     private static SessionFactory sessionFactory;
     private static Session session;
 
-    public static void initialise(){
+    public static void initialise() throws URISyntaxException {
         configuration = new Configuration().configure();
-        configuration.setProperty("hibernate.connection.password",System.getenv("JDBC_DATABASE_USERNAME"));
-        configuration.setProperty("hibernate.connection.username",System.getenv("JDBC_DATABASE_PASSWORD"));
-        configuration.setProperty("hibernate.connection.url",System.getenv("JDBC_DATABASE_URL"));
+        URI dbUri = new URI(System.getenv("DATABASE_URL"));
+        String username = dbUri.getUserInfo().split(":")[0];
+        String password = dbUri.getUserInfo().split(":")[1];
+        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+
+        configuration.setProperty("hibernate.connection.password",password);
+        configuration.setProperty("hibernate.connection.username",username);
+        configuration.setProperty("hibernate.connection.url",dbUrl);
+
         configuration.addAnnotatedClass(ExamQuestion.class);
         builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
         sessionFactory =configuration.buildSessionFactory(builder.build());
@@ -45,7 +54,7 @@ public class DataBase {
 
     public static ExamQuestion[] getVariant(Integer variant){
         ExamQuestion[] questions = new ExamQuestion[20];
-        for (int i = 0; i < 20; i++){
+        for (int i = 0; i < 3; i++){
             questions[i] = DataBase.getExamQuestion(i+1);
         }
         return questions;
