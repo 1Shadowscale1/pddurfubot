@@ -3,6 +3,7 @@ package pddurfubot.handlers;
 import pddurfubot.commands.CommandInterface;
 import pddurfubot.commands.basic.About;
 import pddurfubot.commands.basic.Help;
+import pddurfubot.commands.basic.WeatherLocate;
 import pddurfubot.commands.basic.Wrong;
 import pddurfubot.commands.exam.Process;
 import pddurfubot.commands.exam.Start;
@@ -17,6 +18,7 @@ public enum BotState {
     START_EXAM(new Start()),
     QUESTION_EXAM(new Process()),
     END_EXAM(new Stop()),
+    ASK_WEATHER(new WeatherLocate()),
     ANSWER_WRONG(new Wrong());
 
     public final CommandInterface command;
