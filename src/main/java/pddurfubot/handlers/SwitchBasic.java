@@ -3,8 +3,6 @@ package pddurfubot.handlers;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import pddurfubot.cache.UserDataCache;
 
-import java.util.Locale;
-
 public class SwitchBasic {
     public static void SwitchBasicCommands(Message message) {
         String[] msgText = message.getText().split(" ");
@@ -19,12 +17,11 @@ public class SwitchBasic {
             case "/examstart":
                 botState = BotState.START_EXAM;
                 break;
-            case "/askWeather":
-                botState = BotState.ASK_WEATHER;
-                break;
             case "/help":
-            default:
                 botState = BotState.ANSWER_HELP;
+                break;
+            default:
+                botState = UserDataCache.getUsersCurrentBotState(chatId);
                 break;
         }
         UserDataCache.setUsersCurrentBotState(chatId,botState);

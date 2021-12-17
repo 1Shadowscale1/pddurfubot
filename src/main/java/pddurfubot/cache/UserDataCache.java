@@ -10,27 +10,27 @@ public class UserDataCache {
     private static Map<Long, Examiner> userExamStates = new HashMap<>();
 
 
-    public static void setUsersCurrentBotState(Long userId, BotState botState) {
-        userBotStates.put(userId, botState);
+    public static void setUsersCurrentBotState(Long chatId, BotState botState) {
+        userBotStates.put(chatId, botState);
     }
 
-    public static BotState getUsersCurrentBotState(Long userId) {
-        BotState botState = userBotStates.get(userId);
+    public static BotState getUsersCurrentBotState(Long chatId) {
+        BotState botState = userBotStates.get(chatId);
         if (botState == null) {
             botState = BotState.ANSWER_HELP;
         }
         return botState;
     }
 
-    public static Examiner getUsersExaminer(Long userId){
-        Examiner examiner = userExamStates.get(userId);
+    public static Examiner getUsersExaminer(Long chatId){
+        Examiner examiner = userExamStates.get(chatId);
         if (examiner == null){
             examiner = new Examiner(1);
         }
         return examiner;
     }
 
-    public static void setNewUserExaminer(Long userId, Integer variant){
-        userExamStates.put(userId, new Examiner(variant));
+    public static void setNewUserExaminer(Long chatId, Integer variant){
+        userExamStates.put(chatId, new Examiner(variant));
     }
 }

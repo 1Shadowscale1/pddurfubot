@@ -14,14 +14,17 @@ public class CommandSwitch {
         Long chatId = message.getChatId();
         BotState botState = UserDataCache.getUsersCurrentBotState(chatId);
 
-        if (UserDataCache.getUsersCurrentBotState(chatId) == BotState.END_EXAM){
-            UserDataCache.setUsersCurrentBotState(chatId,BotState.ANSWER_HELP);
+        UserDataCache.setUsersCurrentBotState(chatId,BotState.ANSWER_HELP);
+
+        if (message.hasText()){
+            SwitchExam.SwitchExamCommands(message);
+            SwitchBasic.SwitchBasicCommands(message);
         }
 
-        if (botState == BotState.START_EXAM | botState == BotState.QUESTION_EXAM)
-            SwitchExam.SwitchExamCommands(message);
-        else
-            SwitchBasic.SwitchBasicCommands(message);
+        if (message.hasLocation()){
+            UserDataCache.setUsersCurrentBotState(chatId,BotState.SEND_WEATHER);
+        }
+
     }
 
     public static void ProcessCallback(CallbackQuery callbackQuery) throws IOException {
@@ -34,9 +37,14 @@ public class CommandSwitch {
             }
         }
 
-        if (UserDataCache.getUsersCurrentBotState(chatId) == BotState.START_EXAM){
+        else if (UserDataCache.getUsersCurrentBotState(chatId) == BotState.START_EXAM){
             UserDataCache.setNewUserExaminer(chatId, Integer.parseInt(callbackQuery.getData()));
             UserDataCache.setUsersCurrentBotState(chatId,BotState.QUESTION_EXAM);
         }
+
+        else if (UserDataCache.getUsersExaminer(chatId).isExamFinished()){
+            UserDataCache.setUsersCurrentBotState(chatId,BotState.START_EXAM);
+        }
+        else {UserDataCache.setUsersCurrentBotState(chatId,BotState.QUESTION_EXAM);}
     }
 }

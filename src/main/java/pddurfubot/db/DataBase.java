@@ -71,4 +71,12 @@ public class DataBase {
         transaction1.commit();
         return questions;
     }
+
+    public static ArrayList<ArrayList<ExamQuestion>> getAllVariants(){
+        ArrayList<ArrayList<ExamQuestion>> variants = new ArrayList<>();
+        for (int i = 1; i <= getVariantsCount();i++){
+            variants.add(DataBase.getVariant(i));
+        }
+        return variants;
+    }
 }

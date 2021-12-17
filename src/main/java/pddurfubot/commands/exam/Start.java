@@ -32,6 +32,7 @@ public class Start implements CommandInterface {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(receivedMessage.getChatId().toString());
         sendMessage.setText(BotState.START_EXAM.command.exec(new String[]{}));
+
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         inlineKeyboardMarkup.setKeyboard(MarkupBuilder.getExamMarkup());
         sendMessage.setReplyMarkup(inlineKeyboardMarkup);

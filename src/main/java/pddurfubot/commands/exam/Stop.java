@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import pddurfubot.cache.UserDataCache;
 import pddurfubot.commands.CommandInterface;
 import pddurfubot.commands.PhotoSender;
+import pddurfubot.exam.Examiner;
 import pddurfubot.handlers.BotState;
 
 import java.io.File;
@@ -38,11 +39,12 @@ public class Stop extends PhotoSender implements CommandInterface {
     @Override
     public SendPhoto getSpecialMessage(Message receivedMessage) throws IOException {
         Long chatId = receivedMessage.getChatId();
-        int result = UserDataCache.getUsersExaminer(chatId).getExamResults();
+        Examiner examiner = UserDataCache.getUsersExaminer(chatId);
+        int result = examiner.getExamResults();
         SendPhoto sendPhoto = new SendPhoto();
         sendPhoto.setChatId(chatId.toString());
-        sendPhoto.setCaption(result + " из 20");
-        if(result < 20){
+        sendPhoto.setCaption(result + " из "+examiner.getQuestionAmount());
+        if(result < examiner.getQuestionAmount()){
             sendPhoto.setPhoto(new InputFile(new File("src\\main\\resources\\examfailed.jpg")));
         }
         else {
