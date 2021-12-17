@@ -1,22 +1,23 @@
 package pddurfubot.exam;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.io.*;
 import java.util.List;
-import java.util.Set;
-
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@Table(name = "variant_test")
+@Table(name = "exam_questions")
 public class ExamQuestion {
 
     @Id
+    @GeneratedValue
     @Column
-    private Integer id;
+    private Long id;
 
+    @Column(name = "question_number")
+    private Integer questionNumber;
+
+    @Column(name = "exam_variant")
+    private Integer examVariant;
 
     @Column(name="question_image")
     private byte[] questionImage;
@@ -33,8 +34,15 @@ public class ExamQuestion {
 
     public ExamQuestion(){}
 
-    public ExamQuestion(Integer id,byte[] questionImage, List<String> answers, String correctAnswer, String questionText){
-        this.id = id;
+    public ExamQuestion(Integer examVariant,
+                        Integer questionNumber,
+                        byte[] questionImage,
+                        String questionText,
+                        List<String> answers,
+                        String correctAnswer)
+    {
+        this.examVariant = examVariant;
+        this.questionNumber = questionNumber;
         this.questionImage = questionImage;
         this.answers = answers;
         this.correctAnswer = correctAnswer;
@@ -42,17 +50,22 @@ public class ExamQuestion {
     }
 
 
-    public Integer getId(){
+    public Long getId(){
         return id;
     }
-    public void setId(Integer id){
+    public void setId(Long id){
         this.id = id;
     }
+
+    public Integer getExamVariant() {return examVariant;}
+    public void setExamVariant(Integer examVariant) {this.examVariant = examVariant;}
+
+    public Integer getQuestionNumber() {return questionNumber;}
+    public void setQuestionNumber(Integer questionNumber) {this.questionNumber = questionNumber;}
 
     public String getCorrectAnswer() {
         return correctAnswer;
     }
-
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
@@ -60,7 +73,6 @@ public class ExamQuestion {
     public byte[] getQuestionImage() {
         return questionImage;
     }
-
     public void setQuestionImage(byte[] questionImage) {
         this.questionImage = questionImage;
     }
@@ -68,7 +80,6 @@ public class ExamQuestion {
     public List<String> getAnswers() {
         return answers;
     }
-
     public void setAnswers(List<String> answers) {
         this.answers = answers;
     }
@@ -76,13 +87,12 @@ public class ExamQuestion {
     public String getQuestionText() {
         return questionText;
     }
-
     public void setQuestionText(String questionText) {
         this.questionText = questionText;
     }
 
     public File getImageFile() throws IOException {
-        File file = new File("src\\main\\resources\\images\\"+id+".jpg");
+        File file = new File("src\\main\\resources\\images\\"+examVariant+"_"+questionNumber+".jpg");
         if (!file.exists()){
             OutputStream os = new FileOutputStream(file);
             os.write(questionImage);

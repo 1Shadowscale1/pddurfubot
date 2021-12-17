@@ -2,14 +2,16 @@ package pddurfubot.exam;
 
 import pddurfubot.db.DataBase;
 
-public class ExamBuilder {
-    private static Integer VariantsCount = DataBase.getVariantsCount();
+import java.util.ArrayList;
 
-    public static Integer getVariantsCount(){
+public class ExamBuilder {
+    private static final Long VariantsCount = DataBase.getVariantsCount();
+
+    public static Long getVariantsCount(){
         return VariantsCount;
     }
 
-    public ExamQuestion[] getExamList(Integer variant) {
+    public ArrayList<ExamQuestion> getExamList(Integer variant) {
         return DataBase.getVariant(variant);
     }
 }
