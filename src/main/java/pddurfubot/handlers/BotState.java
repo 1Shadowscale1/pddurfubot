@@ -15,8 +15,7 @@ public enum BotState {
     START_EXAM(new Start()),
     QUESTION_EXAM(new Process()),
     END_EXAM(new Stop()),
-    SEND_WEATHER(new SendWeather()),
-    ANSWER_WRONG(new Wrong());
+    SEND_WEATHER(new SendWeather());
 
     public final CommandInterface command;
 
