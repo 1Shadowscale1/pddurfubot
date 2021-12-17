@@ -28,23 +28,21 @@ public class CommandSwitch {
     }
 
     public static void ProcessCallback(CallbackQuery callbackQuery) throws IOException {
-        Long chatId = callbackQuery.getMessage().getChatId();
+        Message message = callbackQuery.getMessage();
+        Long chatId = message.getChatId();
 
-        if (UserDataCache.getUsersCurrentBotState(chatId) == BotState.QUESTION_EXAM){
+        if (callbackQuery.getData().equals("wrong") | callbackQuery.getData().equals("right")){
+            UserDataCache.setUsersCurrentBotState(chatId,BotState.QUESTION_EXAM);
             UserDataCache.getUsersExaminer(chatId).setAnswer(callbackQuery.getData());
             if (UserDataCache.getUsersExaminer(chatId).getNextQuestion() == null){
                 UserDataCache.setUsersCurrentBotState(chatId,BotState.END_EXAM);
             }
         }
-
-        else if (UserDataCache.getUsersCurrentBotState(chatId) == BotState.START_EXAM){
+        else {
             UserDataCache.setNewUserExaminer(chatId, Integer.parseInt(callbackQuery.getData()));
             UserDataCache.setUsersCurrentBotState(chatId,BotState.QUESTION_EXAM);
         }
 
-        else if (UserDataCache.getUsersExaminer(chatId).isExamFinished()){
-            UserDataCache.setUsersCurrentBotState(chatId,BotState.START_EXAM);
-        }
-        else {UserDataCache.setUsersCurrentBotState(chatId,BotState.QUESTION_EXAM);}
+        UserDataCache.setUserUsedMessage(chatId,message.getMessageId());
     }
 }

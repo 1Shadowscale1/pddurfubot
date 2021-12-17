@@ -44,14 +44,12 @@ public class Process extends PhotoSender implements CommandInterface {
     public SendPhoto getSpecialMessage(Message receivedMessage) throws IOException {
         SendPhoto sendPhoto = new SendPhoto();
         Long chatId = receivedMessage.getChatId();
+        ExamQuestion examQuestion = UserDataCache.getUsersExaminer(chatId).getNextQuestion();
+
         sendPhoto.setChatId(chatId.toString());
-        sendPhoto.setCaption(UserDataCache
-                .getUsersExaminer(chatId)
-                .getNextQuestion()
-                .getQuestionText());
+        sendPhoto.setCaption(examQuestion.getQuestionNumber()+". "+examQuestion.getQuestionText());
 
         File file = UserDataCache.getUsersExaminer(chatId).getNextQuestion().getImageFile();
-        ExamQuestion examQuestion = UserDataCache.getUsersExaminer(chatId).getNextQuestion();
         sendPhoto.setPhoto(new InputFile(file,examQuestion.getId().toString()));
 
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();

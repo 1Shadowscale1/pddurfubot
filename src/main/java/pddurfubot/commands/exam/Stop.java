@@ -14,7 +14,7 @@ import pddurfubot.handlers.BotState;
 import java.io.File;
 import java.io.IOException;
 
-public class Stop extends PhotoSender implements CommandInterface {
+public class Stop implements CommandInterface {
 
     @Override
     public String getDescription() {
@@ -33,17 +33,33 @@ public class Stop extends PhotoSender implements CommandInterface {
 
     @Override
     public SendMessage getMessage(Message receivedMessage) {
-        return null;
+        Long chatId = receivedMessage.getChatId();
+        Examiner examiner = UserDataCache.getUsersExaminer(chatId);
+        int result = examiner.getExamResults();
+
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId.toString());
+
+        String messageText = "";
+        if(result < examiner.getQuestionAmount()){
+            messageText += "Тест не пройден\n";
+        }
+        else {
+           messageText += "Тест пройден\n";
+        }
+        messageText += result + " из "+examiner.getQuestionAmount()+"\n";
+        messageText += examiner.getWrongAnswers();
+        sendMessage.setText(messageText);
+        return sendMessage;
     }
 
-    @Override
     public SendPhoto getSpecialMessage(Message receivedMessage) throws IOException {
         Long chatId = receivedMessage.getChatId();
         Examiner examiner = UserDataCache.getUsersExaminer(chatId);
         int result = examiner.getExamResults();
         SendPhoto sendPhoto = new SendPhoto();
         sendPhoto.setChatId(chatId.toString());
-        sendPhoto.setCaption(result + " из "+examiner.getQuestionAmount());
+        sendPhoto.setCaption(result + " из "+examiner.getQuestionAmount()+"\n"+"Правильные ответы"+"\n");
         if(result < examiner.getQuestionAmount()){
             sendPhoto.setPhoto(new InputFile(new File("src\\main\\resources\\examfailed.jpg")));
         }

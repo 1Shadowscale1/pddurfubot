@@ -37,17 +37,19 @@ public class Bot extends TelegramLongPollingBot{
 		if (update.hasCallbackQuery()){
 			CallbackQuery callbackQuery = update.getCallbackQuery();
 			Message message = callbackQuery.getMessage();
-			try {
-				CommandSwitch.ProcessCallback(callbackQuery);
-				BotState botState = UserDataCache.getUsersCurrentBotState(message.getChatId());
-				if (botState.command instanceof PhotoSender){
-					execute(((PhotoSender) botState.command).getSpecialMessage(message));
+			if (!UserDataCache.getUserUsedMessages(message.getChatId()).contains(message.getMessageId())){
+				try {
+					CommandSwitch.ProcessCallback(callbackQuery);
+					BotState botState = UserDataCache.getUsersCurrentBotState(message.getChatId());
+					if (botState.command instanceof PhotoSender){
+						execute(((PhotoSender) botState.command).getSpecialMessage(message));
+					}
+					else {
+						execute(botState.command.getMessage(message));
+					}
+				} catch (TelegramApiException | IOException e) {
+					e.printStackTrace();
 				}
-				else {
-					execute(botState.command.getMessage(message));
-				}
-			} catch (TelegramApiException | IOException e) {
-				e.printStackTrace();
 			}
 		}
     }
