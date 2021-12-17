@@ -18,7 +18,7 @@ public class DataBase {
     private static Configuration configuration;
     private static StandardServiceRegistryBuilder builder;
     private static SessionFactory sessionFactory;
-    private static Session session;
+    public static Session session;
 
     public static void initialise() throws URISyntaxException {
         configuration = new Configuration().configure();

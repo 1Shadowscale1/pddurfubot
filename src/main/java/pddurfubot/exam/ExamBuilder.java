@@ -11,7 +11,7 @@ public class ExamBuilder {
         return VariantsCount;
     }
 
-    public ArrayList<ExamQuestion> getExamList(Integer variant) {
+    public static ArrayList<ExamQuestion> getExamList(Integer variant) {
         return DataBase.getVariant(variant);
     }
 }
