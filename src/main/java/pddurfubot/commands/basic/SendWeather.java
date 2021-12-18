@@ -34,8 +34,14 @@ public class SendWeather implements CommandInterface {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(receivedMessage.getChatId().toString());
         Location location = receivedMessage.getLocation();
-        sendMessage.setText(Weather.ApiRequest(location.getLatitude(), location.getLongitude()));
 
+        try {
+            sendMessage.setText(Weather.ApiRequest(location.getLatitude(), location.getLongitude()));
+        }
+        catch (Exception e){
+            sendMessage.setText("Произошла ошибка, повторите еще раз");
+            e.printStackTrace();
+        }
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
         keyboardMarkup.setResizeKeyboard(true);
         keyboardMarkup.setSelective(false);
