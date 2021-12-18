@@ -11,7 +11,10 @@ public class Examiner {
     private boolean examFinished = true;
 
     public Examiner(Integer variant){
-        examList = ExamBuilder.getExamList(variant);
+        if (variant == 0)
+            examList = new ArrayList<>();
+        else
+            examList = ExamBuilder.getExamList(variant);
     }
 
     public ExamQuestion getNextQuestion(){

@@ -45,6 +45,9 @@ public class UserDataCache {
     }
 
     public static void setUserUsedMessage(Long chatId, Integer messageId){
+        if (userUsedMessages.get(chatId) == null){
+            userUsedMessages.put(chatId,new HashSet<>());
+        }
         userUsedMessages.get(chatId).add(messageId);
     }
 }
