@@ -11,6 +11,9 @@ public class SwitchBasic {
 
         BotState botState;
         switch (inputCmd.toLowerCase()) {
+            case "/start":
+                botState = BotState.ANSWER_START;
+                break;
             case "/about":
                 botState = BotState.ANSWER_ABOUT;
                 break;

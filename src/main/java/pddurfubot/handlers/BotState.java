@@ -10,6 +10,7 @@ import pddurfubot.commands.exam.Stop;
  */
 
 public enum BotState {
+    ANSWER_START(new StartConv()),
     ANSWER_HELP(new Help()),
     ANSWER_ABOUT(new About()),
     START_EXAM(new Start()),
