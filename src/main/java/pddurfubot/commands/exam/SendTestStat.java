@@ -12,6 +12,7 @@ import pddurfubot.exam.FormHtmlStats;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Date;
 
 public class SendTestStat extends DocumentSender implements CommandInterface {
 
@@ -38,15 +39,17 @@ public class SendTestStat extends DocumentSender implements CommandInterface {
     @Override
     public SendDocument getSpecialMessage(Message receivedMessage) throws IOException {
         Examiner userExaminer = UserDataCache.getUsersExaminer(receivedMessage.getChatId());
-        Integer variant = userExaminer.answeredExamQuestions.get(0).getExamVariant();
+        Integer variant = userExaminer.getAnsweredExamQuestions().get(0).getExamVariant();
+        Date date = new Date((long) receivedMessage.getDate()*1000);
 
         SendDocument sendDocument = new SendDocument();
         sendDocument.setChatId(receivedMessage.getChatId().toString());
         sendDocument.setDocument(new InputFile(FormHtmlStats.FormHtml(
-                "123",
+                receivedMessage.getChatId().toString(),
+                date.toString(),
                 variant,
                 userExaminer.getExamResults(),
-                userExaminer.answeredExamQuestions)));
+                userExaminer.getAnsweredExamQuestions())));
         return sendDocument;
     }
 }

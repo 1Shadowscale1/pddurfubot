@@ -9,42 +9,42 @@ import java.nio.file.Files;
 import java.util.List;
 
 public class FormHtmlStats {
-    public static File FormHtml(String date, int variant, int result,
+    public static File FormHtml(String chatId,String date, int variant, int result,
                                 List<AnsweredExamQuestion> answeredQuestions) throws IOException {
         File htmlTemplateFile = new File("src/main/resources/exam-stats.html");
         String htmlString = FileUtils.readFileToString(htmlTemplateFile);
 
         String head = "Дата: " + date;
         String subHead = "Вариант: " + variant;
-        String examResult = "Результат " + result + " " + "из" + answeredQuestions.size() + ".";
+        String examResult = "Результат " + result + " " + "из " + answeredQuestions.size() + ".";
         htmlString = htmlString.replace("$head", head);
         htmlString = htmlString.replace("$subhead", subHead);
-        htmlString = htmlString.replace("$result", examResult);
 
-        int i;
-        for (i = 0; i < answeredQuestions.size(); i++) {
-            AnsweredExamQuestion answer = answeredQuestions.get(i);
-            StringBuilder pic = new StringBuilder("<p><img src=\"data:image/jpg;base64, " +
-                    imageToTxt(answer.getImageFile().getPath()) +
-                    "\" alt=\"pddQuestionImage\" width=\"300\" height=\"200\"></p>");
-            int j;
-            for (j = 0; j < answer.answers.size(); j++){
-                List<String> answers = answer.getAnswers();
+        for (AnsweredExamQuestion question : answeredQuestions) {
+
+            StringBuilder pic = new StringBuilder(
+                    "<div style=\"border: 4px double black; padding: 10px; margin: 20px;\">" +
+                    "<p><img src=\"data:image/jpg;base64, " +
+                    imageToTxt(question.getImageFile().getPath()) +
+                    "\" alt=\"pddQuestionImage\" width=\"550\" height=\"250\"></p>"
+            );
+            for (String answer : question.answers) {
                 pic.append("<p");
-                if (answer.correctAnswer.equals(String.valueOf(answers.get(j).charAt(0))))
+                if (question.correctAnswer.equals(String.valueOf(answer.charAt(0))))
                     pic.append(" style=\"color:#86dc3d\"");
-                else if (answer.getUserAnswer().equals(String.valueOf(answers.get(j).charAt(0))))
+                else if (question.getUserAnswer().equals(String.valueOf(answer.charAt(0))))
                     pic.append(" style=\"color:#ff0000\"");
-                pic.append(">").append(answers.get(j)).append("</p>");
+                pic.append(">").append(answer).append("</p>");
             }
+            pic.append("</div>");
             int index = htmlString.indexOf("</body>");
             htmlString = new StringBuilder(htmlString).insert(index, pic).toString();
         }
 
         htmlString = new StringBuilder(htmlString).insert(htmlString.indexOf("</body>"),
-                "<p>" + examResult + "</p>").toString();
+                "<p style=\"font-size: 2em\">" + examResult + "</p>").toString();
 
-        File newHtmlFile = new File("src/main/resources/exam-stats-new.html");
+        File newHtmlFile = new File("src/main/resources/"+chatId+".html");
         FileUtils.writeStringToFile(newHtmlFile, htmlString);
         return newHtmlFile;
     }

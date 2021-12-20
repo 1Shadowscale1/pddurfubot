@@ -5,10 +5,12 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import pddurfubot.cache.UserDataCache;
 import pddurfubot.commands.CommandInterface;
 import pddurfubot.commands.PhotoSender;
 import pddurfubot.exam.Examiner;
+import pddurfubot.exam.MarkupBuilder;
 import pddurfubot.handlers.BotState;
 
 import java.io.File;
@@ -49,8 +51,11 @@ public class Stop implements CommandInterface {
         }
         messageText += result + " из "+examiner.getQuestionAmount()+"\n";
         messageText += examiner.getWrongAnswers();
-        messageText += "/getstats";
         sendMessage.setText(messageText);
+
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+        inlineKeyboardMarkup.setKeyboard(MarkupBuilder.getStopExamMarkup());
+        sendMessage.setReplyMarkup(inlineKeyboardMarkup);
         return sendMessage;
     }
 

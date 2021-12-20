@@ -12,7 +12,6 @@ public class SwitchExam {
         switch(inputCmd.toLowerCase()) {
             case "/examstop":
                 botState = BotState.END_EXAM;
-                UserDataCache.getUsersExaminer(chatId).setExamFinished(true);
                 break;
             default:
                 botState = UserDataCache.getUsersCurrentBotState(chatId);

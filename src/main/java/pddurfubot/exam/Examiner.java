@@ -9,8 +9,7 @@ public class Examiner {
     private Integer examResults = 0;
     private String wrongAnswers = "";
     private boolean examFinished = true;
-
-    public ArrayList<AnsweredExamQuestion> answeredExamQuestions = new ArrayList<>();
+    private ArrayList<AnsweredExamQuestion> answeredExamQuestions = new ArrayList<>();
 
     public Examiner(Integer variant){
         if (variant == 0)
@@ -58,5 +57,9 @@ public class Examiner {
 
     public int getExamResults(){
         return examResults;
+    }
+
+    public ArrayList<AnsweredExamQuestion> getAnsweredExamQuestions() {
+        return answeredExamQuestions;
     }
 }

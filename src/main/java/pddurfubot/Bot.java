@@ -27,18 +27,9 @@ public class Bot extends TelegramLongPollingBot{
             Message message = update.getMessage();
             try {
 				CommandSwitch.ProcessCommands(message);
-				BotState botState = UserDataCache.getUsersCurrentBotState(message.getChatId());
-				if (botState.command instanceof PhotoSender){
-					execute(((PhotoSender) botState.command).getSpecialMessage(message));
-				}
-				else if (botState.command instanceof DocumentSender){
-                	execute(((DocumentSender) botState.command).getSpecialMessage(message));
-				}
-				else {
-					execute(botState.command.getMessage(message));
-				}
+				defaultSender(message);
 
-            } catch (TelegramApiException | IOException e) {
+			} catch (TelegramApiException | IOException e) {
                 e.printStackTrace();
             }
         }
@@ -48,19 +39,26 @@ public class Bot extends TelegramLongPollingBot{
 			if (!UserDataCache.getUserUsedMessages(message.getChatId()).contains(message.getMessageId())){
 				try {
 					CommandSwitch.ProcessCallback(callbackQuery);
-					BotState botState = UserDataCache.getUsersCurrentBotState(message.getChatId());
-					if (botState.command instanceof PhotoSender){
-						execute(((PhotoSender) botState.command).getSpecialMessage(message));
-					}
-					else {
-						execute(botState.command.getMessage(message));
-					}
+					defaultSender(message);
 				} catch (TelegramApiException | IOException e) {
 					e.printStackTrace();
 				}
 			}
 		}
     }
+
+	private void defaultSender(Message message) throws TelegramApiException, IOException {
+		BotState botState = UserDataCache.getUsersCurrentBotState(message.getChatId());
+		if (botState.command instanceof PhotoSender){
+			execute(((PhotoSender) botState.command).getSpecialMessage(message));
+		}
+		else if (botState.command instanceof DocumentSender){
+			execute(((DocumentSender) botState.command).getSpecialMessage(message));
+		}
+		else {
+			execute(botState.command.getMessage(message));
+		}
+	}
 
 	@Override
 	public void clearWebhook() throws TelegramApiRequestException {

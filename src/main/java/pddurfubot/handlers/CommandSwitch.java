@@ -1,9 +1,7 @@
 package pddurfubot.handlers;
 
-import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import pddurfubot.cache.UserDataCache;
 import pddurfubot.exam.AnsweredExamQuestion;
 import pddurfubot.exam.Examiner;
@@ -14,7 +12,6 @@ public class CommandSwitch {
 
     public static void ProcessCommands (Message message) {
         Long chatId = message.getChatId();
-        BotState botState = UserDataCache.getUsersCurrentBotState(chatId);
 
         UserDataCache.setUsersCurrentBotState(chatId,BotState.ANSWER_HELP);
 
@@ -26,7 +23,6 @@ public class CommandSwitch {
         if (message.hasLocation()){
             UserDataCache.setUsersCurrentBotState(chatId,BotState.SEND_WEATHER);
         }
-
     }
 
     public static void ProcessCallback(CallbackQuery callbackQuery) throws IOException {
@@ -37,7 +33,7 @@ public class CommandSwitch {
             UserDataCache.setUsersCurrentBotState(chatId,BotState.QUESTION_EXAM);
             Examiner userExaminer = UserDataCache.getUsersExaminer(chatId);
 
-            userExaminer.answeredExamQuestions
+            userExaminer.getAnsweredExamQuestions()
                     .add(new AnsweredExamQuestion(userExaminer.getNextQuestion(),data.substring(1)));
 
             userExaminer.setAnswer(callbackQuery.getData());
@@ -45,7 +41,10 @@ public class CommandSwitch {
                 UserDataCache.setUsersCurrentBotState(chatId,BotState.END_EXAM);
             }
         }
-        else {
+        else if (data.equals("result")){
+            UserDataCache.setUsersCurrentBotState(chatId,BotState.SEND_TEST_STAT);
+        }
+        else{
             UserDataCache.setNewUserExaminer(chatId, Integer.parseInt(callbackQuery.getData()));
             UserDataCache.setUsersCurrentBotState(chatId,BotState.QUESTION_EXAM);
         }

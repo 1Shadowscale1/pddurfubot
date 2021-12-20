@@ -21,6 +21,17 @@ public class MarkupBuilder {
         return (ArrayList) inlineButtons;
     }
 
+    public static ArrayList getStopExamMarkup(){
+        List<List<InlineKeyboardButton>> inlineButtons = new ArrayList<>();
+        List<InlineKeyboardButton> inlineKeyboardButtonList = new ArrayList<>();
+        InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
+        inlineKeyboardButton.setText("Получить результат");
+        inlineKeyboardButton.setCallbackData("result");
+        inlineKeyboardButtonList.add(inlineKeyboardButton);
+        inlineButtons.add(inlineKeyboardButtonList);
+        return (ArrayList) inlineButtons;
+    }
+
     public static ArrayList getExamMarkup(){
         List<List<InlineKeyboardButton>> inlineButtons = new ArrayList<>();
         List<InlineKeyboardButton> inlineKeyboardButtonList = new ArrayList<>();
