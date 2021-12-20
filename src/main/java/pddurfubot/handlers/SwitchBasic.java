@@ -23,6 +23,9 @@ public class SwitchBasic {
             case "/help":
                 botState = BotState.ANSWER_HELP;
                 break;
+            case "/getstats":
+                botState = BotState.SEND_TEST_STAT;
+                break;
             default:
                 botState = UserDataCache.getUsersCurrentBotState(chatId);
                 break;

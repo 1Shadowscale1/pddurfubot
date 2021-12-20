@@ -3,6 +3,7 @@ package pddurfubot.handlers;
 import pddurfubot.commands.CommandInterface;
 import pddurfubot.commands.basic.*;
 import pddurfubot.commands.exam.Process;
+import pddurfubot.commands.exam.SendTestStat;
 import pddurfubot.commands.exam.Start;
 import pddurfubot.commands.exam.Stop;
 
@@ -10,6 +11,7 @@ import pddurfubot.commands.exam.Stop;
  */
 
 public enum BotState {
+    SEND_TEST_STAT(new SendTestStat()),
     ANSWER_START(new StartConv()),
     ANSWER_HELP(new Help()),
     ANSWER_ABOUT(new About()),

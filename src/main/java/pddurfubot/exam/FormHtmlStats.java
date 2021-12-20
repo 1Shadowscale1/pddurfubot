@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class FormHtmlStats {
-    public static SendDocument FormHtml(String date, int variant, int result,
+    public static File FormHtml(String date, int variant, int result,
                                 List<AnsweredExamQuestion> answeredQuestions) throws IOException {
         File htmlTemplateFile = new File("src\\main\\resources\\exam-stats.html");
         String htmlString = FileUtils.readFileToString(htmlTemplateFile);
@@ -22,9 +22,6 @@ public class FormHtmlStats {
         htmlString = htmlString.replace("$result", examResult);
         File newHtmlFile = new File("src\\main\\resources\\exam-stats-new.html");
         FileUtils.writeStringToFile(newHtmlFile, htmlString);
-
-        SendDocument msg = new SendDocument();
-        msg.setDocument(new InputFile().setMedia(new File("src\\main\\resources\\exam-stats-new.html")));
-        return msg;
+        return newHtmlFile;
     }
 }

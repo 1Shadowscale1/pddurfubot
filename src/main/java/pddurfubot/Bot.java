@@ -1,6 +1,7 @@
 package pddurfubot;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -8,11 +9,15 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import pddurfubot.cache.UserDataCache;
+import pddurfubot.commands.DocumentSender;
 import pddurfubot.commands.PhotoSender;
+import pddurfubot.exam.AnsweredExamQuestion;
+import pddurfubot.exam.FormHtmlStats;
 import pddurfubot.handlers.BotState;
 import pddurfubot.handlers.CommandSwitch;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Bot extends TelegramLongPollingBot{
 
@@ -26,8 +31,11 @@ public class Bot extends TelegramLongPollingBot{
 				if (botState.command instanceof PhotoSender){
 					execute(((PhotoSender) botState.command).getSpecialMessage(message));
 				}
+				else if (botState.command instanceof DocumentSender){
+                	execute(((DocumentSender) botState.command).getSpecialMessage(message));
+				}
 				else {
-                execute(botState.command.getMessage(message));
+					execute(botState.command.getMessage(message));
 				}
 
             } catch (TelegramApiException | IOException e) {

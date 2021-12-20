@@ -49,6 +49,7 @@ public class Stop implements CommandInterface {
         }
         messageText += result + " из "+examiner.getQuestionAmount()+"\n";
         messageText += examiner.getWrongAnswers();
+        messageText += "/getstats";
         sendMessage.setText(messageText);
         return sendMessage;
     }
