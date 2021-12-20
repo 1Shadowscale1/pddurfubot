@@ -5,6 +5,8 @@ import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import pddurfubot.cache.UserDataCache;
+import pddurfubot.exam.AnsweredExamQuestion;
+import pddurfubot.exam.Examiner;
 
 import java.io.IOException;
 
@@ -30,10 +32,15 @@ public class CommandSwitch {
     public static void ProcessCallback(CallbackQuery callbackQuery) throws IOException {
         Message message = callbackQuery.getMessage();
         Long chatId = message.getChatId();
-
-        if (callbackQuery.getData().equals("wrong") | callbackQuery.getData().equals("right")){
+        String data = callbackQuery.getData();
+        if (String.valueOf(data.charAt(0)).equals("q")){
             UserDataCache.setUsersCurrentBotState(chatId,BotState.QUESTION_EXAM);
-            UserDataCache.getUsersExaminer(chatId).setAnswer(callbackQuery.getData());
+            Examiner userExaminer = UserDataCache.getUsersExaminer(chatId);
+
+            userExaminer.answeredExamQuestions
+                    .add(new AnsweredExamQuestion(userExaminer.getNextQuestion(),data.substring(1)));
+
+            userExaminer.setAnswer(callbackQuery.getData());
             if (UserDataCache.getUsersExaminer(chatId).getNextQuestion() == null){
                 UserDataCache.setUsersCurrentBotState(chatId,BotState.END_EXAM);
             }

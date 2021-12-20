@@ -13,12 +13,8 @@ public class MarkupBuilder {
             InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
             inlineKeyboardButton.setText(examQuestion.getAnswers().get(i));
 
-            if (examQuestion.getAnswers().get(i).equals(examQuestion.getCorrectAnswer())){
-                inlineKeyboardButton.setCallbackData("right");
-            }
-            else {
-                inlineKeyboardButton.setCallbackData("wrong");
-            }
+            inlineKeyboardButton.setCallbackData("q"+examQuestion.getAnswers().get(i).charAt(0));
+
             inlineKeyboardButtonList.add(inlineKeyboardButton);
             inlineButtons.add(inlineKeyboardButtonList);
         }

@@ -33,6 +33,7 @@ public class ExamCommandsStateTest {
     @Test
     public void ExamStopMessageTest(){
         TestConfig testConfig = new TestConfig();
+        UserDataCache.setNewUserExaminer(testConfig.testMessage.getChatId(),0);
         testConfig.testMessage.setText("/examstop");
         CommandSwitch.ProcessCommands(testConfig.testMessage);
         assertEquals(BotState.END_EXAM,

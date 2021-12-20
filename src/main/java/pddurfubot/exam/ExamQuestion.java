@@ -2,6 +2,7 @@ package pddurfubot.exam;
 
 import javax.persistence.*;
 import java.io.*;
+import java.nio.file.Files;
 import java.util.List;
 
 @Entity
@@ -14,23 +15,23 @@ public class ExamQuestion {
     private Long id;
 
     @Column(name = "question_number")
-    private Integer questionNumber;
+    protected Integer questionNumber;
 
     @Column(name = "exam_variant")
-    private Integer examVariant;
+    protected Integer examVariant;
 
     @Column(name="question_image")
-    private byte[] questionImage;
+    protected byte[] questionImage;
 
     @ElementCollection
     @Column
-    private List<String> answers;
+    protected List<String> answers;
 
     @Column(name = "correct_answer")
-    private String correctAnswer;
+    protected String correctAnswer;
 
     @Column(name = "question_text")
-    private String questionText;
+    protected String questionText;
 
     public ExamQuestion(){}
 
@@ -99,6 +100,11 @@ public class ExamQuestion {
             os.close();
         }
         return file;
+    }
+
+    public static byte[] ConvertImg(String path) throws IOException {
+        File fi = new File(path);
+        return Files.readAllBytes(fi.toPath());
     }
 
 }

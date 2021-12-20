@@ -10,6 +10,8 @@ public class Examiner {
     private String wrongAnswers = "";
     private boolean examFinished = true;
 
+    public ArrayList<AnsweredExamQuestion> answeredExamQuestions = new ArrayList<>();
+
     public Examiner(Integer variant){
         if (variant == 0)
             examList = new ArrayList<>();
@@ -37,12 +39,12 @@ public class Examiner {
     }
 
     public void setAnswer(String answer){
-
-        if (answer.equals("right")){
+        String formatAnswer = answer.substring(1);
+        ExamQuestion examQuestion = examList.get(questionPointer);
+        if (formatAnswer.equals(String.valueOf(examQuestion.getCorrectAnswer().charAt(0)))){
             examResults++;
         }
         else {
-            ExamQuestion examQuestion = examList.get(questionPointer);
             wrongAnswers = wrongAnswers + examQuestion.getQuestionNumber()+". "+examQuestion.getCorrectAnswer()+"\n";
         }
         questionPointer++;
